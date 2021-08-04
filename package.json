@@ -1,0 +1,24 @@
+{
+  "name": "vite-plugin-md2vuedoc",
+  "version": "0.1.0",
+  "description": "根据md文件生成带示例的vue组件",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm run dev --filter example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuoJikun/vite-plugin-md2vueDoc.git"
+  },
+  "keywords": [
+    "vite",
+    "plugin",
+    "md"
+  ],
+  "author": "GuoJiKun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuoJikun/vite-plugin-md2vueDoc/issues"
+  },
+  "homepage": "https://github.com/GuoJikun/vite-plugin-md2vueDoc#readme"
+}

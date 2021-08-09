@@ -3,14 +3,14 @@ export type pluginOption = {
    * markdown-it相关配置
    */
   markdown: {
-    plugins: Array<>;
+    plugins: Array<any>;
     html: Boolean; // Enable HTML tags in source
     xhtmlOut: Boolean; // Use '/' to close single tags (<br />).
     // This is only for full CommonMark compatibility.
     breaks: Boolean; // Convert '\n' in paragraphs into <br>
     langPrefix: string; // CSS language prefix for fenced blocks. Can be
     // useful for external highlighters.
-    linkify: Boolean; // Autoconvert URL-like text to links
+    linkify: Boolean; // 将类似URL的文本自动转换为链接
 
     // Enable some language-neutral replacement + quotes beautification
     // For the full list of replacements, see https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/replacements.js

@@ -143,7 +143,7 @@ export const remarkFile = (
     },
   });
 
-  plugins.forEach((plugin: string) => {
+  plugins.forEach((plugin: any) => {
     md.use(plugin);
   });
   // containers.forEach(name => {

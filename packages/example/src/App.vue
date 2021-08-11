@@ -1,19 +1,28 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <Test></Test>
+  <ul>
+    <li>
+      <router-link to="/">Home</router-link>
+    </li>
+    <li>
+      <router-link to="/test">Test</router-link>
+    </li>
+    <li>
+      <router-link to="/test1">Test1</router-link>
+    </li>
+  </ul>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
-import Test from "./views/test.md";
 
 export default defineComponent({
   name: "App",
   components: {
     HelloWorld,
-    Test,
   },
 });
 </script>

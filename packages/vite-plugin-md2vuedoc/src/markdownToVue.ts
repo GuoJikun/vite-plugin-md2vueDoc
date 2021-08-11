@@ -1,32 +1,35 @@
 // import { remarkFile } from './remark'
 // import path from 'path'
-import { ResolvedConfig } from 'vite'
-import { remarkFile } from './markdown-it'
-import { VueDocPluginOptions } from './plugin'
+import { ResolvedConfig } from "vite";
+import { remarkFile } from "./markdown-it";
+import { VueDocPluginOptions } from "./types";
 
-const slash = require('slash')
-const debug = require('debug')('vite:vuedoc:md')
+const slash = require("slash");
+const debug = require("debug")("vite:vuedoc:md");
 
-export const VUEDOC_PREFIX = 'vdpv_'
-export const VUEDOC_RE = /(.*?\.md)_(vdpv_\d+)/
+export const VUEDOC_PREFIX = "vdpv_";
+export const VUEDOC_RE = /(.*?\.md)_(vdpv_\d+)/;
 
-export function createMarkdownRenderFn(options: VueDocPluginOptions, config: ResolvedConfig) {
-  const { wrapperClass } = options
+export function createMarkdownRenderFn(
+  options: VueDocPluginOptions,
+  config: ResolvedConfig
+) {
+  const { wrapperClass } = options;
   // const { theme = 'default' } = prism
   return (code: string, file: string) => {
-    const start = Date.now()
+    const start = Date.now();
     const { template, demoBlocks, matter, toc } = remarkFile(code, {
       vuePrefix: VUEDOC_PREFIX,
       file: file,
-      isServe: config.command === 'serve',
-      ...options
-    })
-    const $vd = { matter, toc }
+      isServe: config.command === "serve",
+      ...options,
+    });
+    const $vd = { matter, toc };
     // const fileName = path.basename(file)
     // const publicPath = path.relative(config.root, file)
     const docComponent = `
     <template>
-      <div class="vuedoc ${wrapperClass || ''} ${matter.wrapperClass || ''}">
+      <div class="vuedoc ${wrapperClass || ""} ${matter.wrapperClass || ""}">
         ${template}
       </div>
     </template>
@@ -34,13 +37,13 @@ export function createMarkdownRenderFn(options: VueDocPluginOptions, config: Res
     import { defineComponent, reactive, ref, toRefs, onMounted } from 'vue'
     
     ${demoBlocks
-      .map(demo => {
-        const request = `${slash(file)}.${demo.id}.vd`
-        debug(`import -> ${file}`)
-        debug(`import -> ${request}`)
-        return `import ${demo.id} from '${request}'`
+      .map((demo) => {
+        const request = `${slash(file)}.${demo.id}.vd`;
+        debug(`import -> ${file}`);
+        debug(`import -> ${request}`);
+        return `import ${demo.id} from '${request}'`;
       })
-      .join('\n')}
+      .join("\n")}
     
     // function injectCss(css, id) {
     //   if (!document.head.querySelector('#' + id)) {
@@ -54,13 +57,13 @@ export function createMarkdownRenderFn(options: VueDocPluginOptions, config: Res
     
     const script = defineComponent({
       components: {
-        ${demoBlocks.map(demo => demo.id).join(',')}
+        ${demoBlocks.map((demo) => demo.id).join(",")}
       },
       setup(props) {
-        ${demoBlocks.map(demo => `const ${demo.id}Ref = ref()`).join('\n')}
-        const refs = [${demoBlocks.map(demo => `${demo.id}Ref`).join(',')}]
+        ${demoBlocks.map((demo) => `const ${demo.id}Ref = ref()`).join("\n")}
+        const refs = [${demoBlocks.map((demo) => `${demo.id}Ref`).join(",")}]
         const state = reactive({
-          ${demoBlocks.map(demo => `${demo.id}Height: 0`).join(',')}
+          ${demoBlocks.map((demo) => `${demo.id}Height: 0`).join(",")}
         })
 
         const toggleCode = (index) => {
@@ -75,7 +78,7 @@ export function createMarkdownRenderFn(options: VueDocPluginOptions, config: Res
         return {
           toggleCode,
           ...toRefs(state),
-          ${demoBlocks.map(demo => `${demo.id}Ref`).join(',')}
+          ${demoBlocks.map((demo) => `${demo.id}Ref`).join(",")}
         }
       }
     });
@@ -83,11 +86,11 @@ export function createMarkdownRenderFn(options: VueDocPluginOptions, config: Res
     export default script;
     
     </script>
-    `
+    `;
 
-    debug(`[render] ${file} in ${Date.now() - start}ms.`)
+    debug(`[render] ${file} in ${Date.now() - start}ms.`);
 
-    const result = { component: docComponent, demoBlocks: [...demoBlocks] }
-    return result
-  }
+    const result = { component: docComponent, demoBlocks: [...demoBlocks] };
+    return result;
+  };
 }

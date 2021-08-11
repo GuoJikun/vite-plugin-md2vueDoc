@@ -4,7 +4,8 @@ import MarkdownIt from "markdown-it";
 import matter from "gray-matter";
 import hljs from "highlight.js";
 import { hljsDefineVue } from "./../highlight/language-vue";
-import { VueDocPluginOptions } from "../plugin";
+import { VueDocPluginOptions } from "../types";
+import { unquote } from "../utils";
 
 import { plugins } from "./plugins";
 
@@ -13,27 +14,6 @@ const debug = require("debug")("vite:vuedoc:markdown-it");
 const highlightDebug = require("debug")("vite:vuedoc:highlight");
 
 hljs.registerLanguage("vue", hljsDefineVue);
-
-export type DemoBlockType = {
-  id: string;
-  code: string;
-  isImport?: boolean;
-};
-
-function unquote(str: string) {
-  if (!str) {
-    return "";
-  }
-  const reg = /[\'\"]/;
-  let ret = str;
-  if (reg.test(ret.charAt(0))) {
-    ret = ret.substr(1);
-  }
-  if (reg.test(ret.charAt(ret.length - 1))) {
-    ret = ret.substr(0, ret.length - 1);
-  }
-  return ret;
-}
 
 export const remarkFile = (
   source: string,

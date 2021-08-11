@@ -1,5 +1,6 @@
 node_modules
-example/node_modules
-vite-plugin-md2vueDoc/node_modules
+packages/example/node_modules
+packages/vite-plugin-md2vueDoc/node_modules
 *.log
 pnpm-lock.yaml
+dist

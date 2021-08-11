@@ -1,21 +1,9 @@
 import { ModuleNode, Plugin, ResolvedConfig } from "vite";
 import { createMarkdownRenderFn } from "./markdownToVue";
-import { DemoBlockType } from "./markdown-it";
+import { DemoBlockType, VueDocPluginOptions } from "./types";
 import path from "path";
 
 const debug = require("debug")("vite:doc:plugin");
-
-export type VueDocPluginOptions = {
-  wrapperClass: string;
-  previewClass: string;
-  previewComponent: string;
-  markdownIt: {
-    plugins: any[];
-  };
-  highlight: {
-    theme: "one-dark" | "one-light" | string;
-  };
-};
 
 const cacheDemos: Map<string, DemoBlockType[]> = new Map();
 

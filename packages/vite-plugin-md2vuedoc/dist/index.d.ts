@@ -1,7 +1,9 @@
-export declare function myPlugin(opt: any): {
+import { ResolvedConfig } from "vite";
+export declare function myPlugin(opt?: any): {
     name: string;
+    configResolved(resolvedConfig: ResolvedConfig): void;
     transform(src: any, id: any): {
-        code: any;
+        code: string;
         map: null;
     } | undefined;
 };

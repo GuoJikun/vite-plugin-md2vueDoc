@@ -4,10 +4,12 @@
   "description": "根据md文件生成带示例的vue组件",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm run dev:lib & pnpm run dev:docs",
-    "dev:docs": "pnpm run dev --filter example",
-    "dev:lib": "pnpm run dev --filter vite-plugin-md2vuedoc",
-    "build:lib": "pnpm run build --filter vite-plugin-md2vuedoc"
+    "dev": "pnpm run lib & pnpm run docs",
+    "lib": "pnpm run dev --filter vite-plugin-md2vuedoc",
+    "docs": "pnpm run dev --filter example",
+    "dev:docs": "pnpm run dev --dir packages/example",
+    "dev:lib": "pnpm run dev --dir packages/vite-plugin-md2vuedoc",
+    "build:lib": "pnpm run build --filter packages/vite-plugin-md2vuedoc"
   },
   "repository": {
     "type": "git",
